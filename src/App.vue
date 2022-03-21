@@ -1,10 +1,10 @@
 <template>
-	<p class="text-red-400">hello world</p>
+	Pokedex
+	<router-view />
 </template>
 
 <script>
 export default {
 	name: "App",
-	components: {},
 };
 </script>
