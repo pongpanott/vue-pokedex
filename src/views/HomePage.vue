@@ -14,59 +14,33 @@
 <script>
 import PokemonListWrapper from "@/components/PokemonListWrapper.vue";
 import PokemonCard from "@/components/PokemonCard.vue";
+import Axios from "@/services/Axios";
 
 export default {
 	name: "HomePage",
 	components: { PokemonListWrapper, PokemonCard },
 	data() {
 		return {
-			pokemons: [
-				{
-					id: 1,
-					name: "Bulbasaur",
-					types: [
-						{
-							slot: 1,
-							type: {
-								name: "grass",
-								url: "https://pokeapi.co/api/v2/type/12/",
-							},
-						},
-						{
-							slot: 2,
-							type: {
-								name: "poison",
-								url: "https://pokeapi.co/api/v2/type/4/",
-							},
-						},
-					],
-					image:
-						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-				},
-				{
-					id: 2,
-					name: "Ivysaur",
-					types: [
-						{
-							slot: 1,
-							type: {
-								name: "grass",
-								url: "https://pokeapi.co/api/v2/type/12/",
-							},
-						},
-						{
-							slot: 2,
-							type: {
-								name: "poison",
-								url: "https://pokeapi.co/api/v2/type/4/",
-							},
-						},
-					],
-					image:
-						"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-				},
-			],
+			pokemons: [],
 		};
+	},
+	created() {
+		Axios.get("/").then((res) => {
+			res.data.results.forEach((element) => {
+				const pokeId = element.url.slice(0, -1).split("/").pop();
+				Axios.get(`/${pokeId}`).then((result) => {
+					const { id, name, sprites, types } = result.data;
+					const { other } = sprites;
+
+					this.pokemons.push({
+						id,
+						name,
+						image: other[Object.keys(other)[2]].front_default,
+						types,
+					});
+				});
+			});
+		});
 	},
 };
 </script>
