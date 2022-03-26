@@ -1,14 +1,12 @@
 <template>
-	<BaseAbilityBadge class="bg-grass text-[#212121]" />
+	<BaseAbilityBadge class="bg-fire text-white" />
 </template>
 
 <script>
 import BaseAbilityBadge from "./BaseAbilityBadge.vue";
 
 export default {
-	name: "GrassAbilityBadge",
+	name: "FirstAbilityBadge",
 	components: { BaseAbilityBadge },
 };
 </script>
-
-<style></style>

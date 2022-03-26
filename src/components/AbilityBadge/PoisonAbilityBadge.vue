@@ -1,5 +1,5 @@
 <template>
-	<BaseAbilityBadge class="bg-[#B97FC9] text-white" />
+	<BaseAbilityBadge class="bg-poison text-white" />
 </template>
 
 <script>
